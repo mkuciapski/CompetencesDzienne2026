@@ -1,5 +1,5 @@
 <script setup lang="ts"></script>
 
 <template>
-  <main>Competencies</main>
+  <main>mikro kraj - mikro sędzia</main>
 </template>
