@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="/js/vue.global.js"></script>
+    <script>
+        window.onload = () => {
+            Vue.createApp({
+                data() {
+                    return {
+                        searchText: "",
+                        competences: [
+                            { Id: 1, Name: "Bootstrap", Level: 4, Picture: "bootstrap.svg", Description: "Wersja 3" },
+                            { Id: 2, Name: "AngularJS", Level: 3, Picture: "angularjs.png", Description: "" },
+                            { Id: 3, Name: "Angular", Level: 4, Picture: "angular.png", Description: "" },
+                            { Id: 4, Name: "Ionic", Level: 4, Picture: "ionic.png", Description: "Wersja 2" },
+                            { Id: 5, Name: "PhoneGap", Level: 0, Picture: "phonegap.png", Description: "Tylko absolutne podstawy" },
+                            { Id: 6, Name: "ReactJS", Level: 1, Picture: "react.png", Description: "Tylko absolutne podstawy" },
+                            { Id: 7, Name: "Xamarin", Level: 2, Picture: "xamarin.png", Description: "Bez API dla IOS" },
+                            { Id: 8, Name: "HTML5", Level: 5, Picture: "html5.png", Description: "Bez WebSockets i Database API" },
+                            { Id: 9, Name: "CSS3", Level: 4, Picture: "css3.png", Description: "" },
+                            { Id: 10, Name: "WebAPI", Level: 5, Picture: "webapi.png", Description: "" }
+                        ]
+                    }
+                },
+                methods: {
+                    searchCompetences(){
+                        console.log(this.searchText)
+                    }
+                }
+
+            }).mount('#app')
+        }
+    </script>
+</head>
+
+<body>
+    <div id="app">
+        <div class="join">
+            <button class="btn join-item text-white bg-green-800" >Podaj nazwę
+                kompetencji</button>
+            <input type="text" v-model="searchText" v-on:keyup="searchCompetences" />
+        </div>
+        <div class="flex flex-wrap justify-center gap-3">
+            <template v-for="competence in competences">
+                <div v-if="competence.Level" class="card bg-base-100 w-48 shadow-sm">
+                    <h2 class="text-center text-xl uppercase">{{competence.Name}}</h2>
+                    <img v-bind:src="`assets/${competence.Picture}`" />
+                    <div class="card-body">
+                        <!--<p v-bind:style="{color: competence.Level > 3 ? 'green' : (competence.Level <3 ? 'red' : 'black')}">Poziom: {{competence.Level}}</p> -->
+                        <p
+                            v-bind:class="[competence.Level < 3 ? 'text-red-500' : competence.Level > 3 ? 'text-green-500' : '']">
+                            Poziom: {{ competence.Level }}</p>
+                        <p v-if="competence.Description">Opis: {{competence.Desbcription}}</p>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </div>
+</body>
+
+</html>

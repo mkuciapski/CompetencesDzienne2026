@@ -13,12 +13,22 @@ setTimeout(() => {
 const whySad = ref('Szaroburo')
 
 //#endregion  MOD
+const second = ref('12px')
+setInterval(() => {
+  second.value = new Date().getSeconds() + 'px'
+}, 4000)
 </script>
 
 <template>
   <input v-model.lazy.trim="whySad" />
   <input v-model="whySad" />
-  <div>{{ user.LastName }}</div>
+  <div class="last-name-style">{{ user.LastName }}</div>
   <div v-html="user.LastName"></div>
   <pre>{{ users }}</pre>
 </template>
+
+<style scoped>
+.last-name-style {
+  font-size: v-bind('second');
+}
+</style>
