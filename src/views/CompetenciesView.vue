@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { competences } from '@/assets/competences'
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 
 // #region LIST
 const _searchText = ref('')
@@ -20,6 +20,15 @@ setTimeout(() => {
 //#region  DISPLAY
 const _padding = ref('5px')
 //#endregion  DISPLAY
+
+const _toastMessage = ref('')
+watch(
+  () => _competences.value,
+  () => {
+    _toastMessage.value = 'Dane kompetencji zmieniły się'
+  },
+  { deep: true },
+)
 </script>
 
 <template>
@@ -38,6 +47,12 @@ const _padding = ref('5px')
         </div>
       </div>
     </template>
+  </div>
+
+  <div v-show="_toastMessage" class="toast">
+    <div class="alert alert-info">
+      <span> {{ _toastMessage }}</span>
+    </div>
   </div>
 </template>
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, reactive, computed, watch } from 'vue'
+import { ref, reactive, computed, watch, watchEffect } from 'vue'
 import { users } from '@/assets/users'
 
 // #region OLD
@@ -32,7 +32,7 @@ import { users } from '@/assets/users'
 
 const _product = ref({ Name: '', Quantity: 0 })
 const _message = ref('')
-watch(
+/*watch(
   () => _product.value,
   (newProduct, oldProduct) => {
     if (newProduct.Quantity < 1) _message.value = 'Nie można zamówić mniej niż 1 produktu'
@@ -41,7 +41,12 @@ watch(
   },
   { deep: true, immediate: true },
 )
-
+*/
+watchEffect(() => {
+  if (_product.value.Quantity < 1) _message.value = 'Nie można zamówić mniej niż 1 produktu'
+  else if (!_product.value.Name) _message.value = 'Podaj nazwę produktu'
+  else _message.value = ''
+})
 const _showProduct = ref(false)
 
 watch(
