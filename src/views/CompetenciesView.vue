@@ -1,15 +1,25 @@
 <script setup lang="ts">
 import { competences } from '@/assets/competences'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
+
+// #region LIST
+const _searchText = ref('')
 
 const _competences = ref(competences)
-const _searchText = ref('')
-const _padding = ref('5px')
+const _filteredCompetences = computed(() => {
+  const searchText = _searchText.value.trim()
+  return _competences.value.filter((competence) => competence.Name.toLowerCase().includes(searchText))
+})
 
 setTimeout(() => {
   _competences.value[0]!.Description = 'Wolę Tailwinda'
   _competences.value.push({ Id: 11, Name: 'C++', Level: 4, Picture: 'bootstrap.svg', Description: 'Wersja 3' })
 }, 4000)
+//#endregion LIST
+
+//#region  DISPLAY
+const _padding = ref('5px')
+//#endregion  DISPLAY
 </script>
 
 <template>
@@ -18,7 +28,7 @@ setTimeout(() => {
     <input type="text" v-model="_searchText" />
   </div>
   <div class="flex flex-wrap justify-center">
-    <template v-for="competence in _competences" :key="competence.Id">
+    <template v-for="competence in _filteredCompetences" :key="competence.Id">
       <div v-if="competence.Level" class="card bg-base-100 w-48 shadow-sm card-spacing">
         <h2 class="text-center text-xl uppercase">{{ competence.Name }}</h2>
         <img :src="`assets/${competence.Picture}`" />
