@@ -35,14 +35,30 @@ import PasswordField from '@/components/PasswordField.vue'
 
 const _showProduct = ref(false)
 
+const _products = ref([
+  { Id: 1, Name: '', Quantity: -1 },
+  { Id: 2, Name: 'Kebab', Quantity: 5 },
+  { Id: 3, Name: '', Quantity: -1 },
+  { Id: 4, Name: '', Quantity: -1 },
+])
+
 //setTimeout(() => {
 // _product.value = { Name: '', Quantity: -1 }
 //}, 8000)
+
+function updateProduct(updatedProduct: { Id: number; Name: string; Quantity: number }) {
+  const productToUpdate = _products.value.find((product) => product.Id === updatedProduct.Id)
+  if (productToUpdate) {
+    productToUpdate.Name = updatedProduct.Name
+    productToUpdate.Quantity = updatedProduct.Quantity
+  }
+}
 </script>
 
 <template>
   <input type="checkbox" v-model="_showProduct" />
-  <OrderItem v-for="n in 3" :key="n" :visible="_showProduct" />
+  <OrderItem v-for="product in _products" :key="product.Name" :visible="_showProduct" :product="product" @update="updateProduct" />
+  <pre>{{ _products }}</pre>
   <br />
   <MaskTextBox symbol="?" />
   <PasswordField />
