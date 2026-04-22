@@ -1,5 +1,8 @@
 <script setup lang="ts">
-defineProps(['competence'])
+import type { Competence } from '@/types/Competence'
+
+//defineProps(['competence'])
+defineProps<{ competence: Competence }>()
 </script>
 
 <template>

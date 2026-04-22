@@ -3,6 +3,7 @@ import { ref, reactive, computed, watch, watchEffect } from 'vue'
 import { users } from '@/assets/users'
 import OrderItem from '@/components/OrderItem.vue'
 import MaskTextBox from '@/components/MaskTextBox.vue'
+import PasswordField from '@/components/PasswordField.vue'
 
 // #region OLD
 // //#region  USER
@@ -44,6 +45,8 @@ const _showProduct = ref(false)
   <OrderItem v-for="n in 3" :key="n" :visible="_showProduct" />
   <br />
   <MaskTextBox symbol="?" />
+  <PasswordField />
+
   <!-- #region OLD -->
   <!-- <pre>{{ _bestUsers }}</pre> -->
   <!-- <input v-model.lazy.trim="whySad" />

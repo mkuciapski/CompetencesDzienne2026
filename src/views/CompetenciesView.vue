@@ -39,7 +39,7 @@ watch(
   </div>
   <div class="flex flex-wrap justify-center">
     <template v-for="competence in _filteredCompetences" :key="competence.Id">
-      <CompetenceCard v-if="competence.Level" />
+      <CompetenceCard v-if="competence.Level" :competence="competence" />
     </template>
   </div>
 
