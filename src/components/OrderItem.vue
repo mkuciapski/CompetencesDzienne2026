@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, watchEffect, watch } from 'vue'
 
-const _props = defineProps(['visible'])
+const _props = withDefaults(defineProps<{ visible?: boolean }>(), { visible: true })
 
 const _product = ref({ Name: '', Quantity: 0 })
 const _message = ref('')

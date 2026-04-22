@@ -2,6 +2,7 @@
 import { ref, reactive, computed, watch, watchEffect } from 'vue'
 import { users } from '@/assets/users'
 import OrderItem from '@/components/OrderItem.vue'
+import MaskTextBox from '@/components/MaskTextBox.vue'
 
 // #region OLD
 // //#region  USER
@@ -41,6 +42,8 @@ const _showProduct = ref(false)
 <template>
   <input type="checkbox" v-model="_showProduct" />
   <OrderItem v-for="n in 3" :key="n" :visible="_showProduct" />
+  <br />
+  <MaskTextBox symbol="?" />
   <!-- #region OLD -->
   <!-- <pre>{{ _bestUsers }}</pre> -->
   <!-- <input v-model.lazy.trim="whySad" />
