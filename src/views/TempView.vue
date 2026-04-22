@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, reactive, computed, watch, watchEffect } from 'vue'
 import { users } from '@/assets/users'
+import OrderItem from '@/components/OrderItem.vue'
 
 // #region OLD
 // //#region  USER
@@ -30,31 +31,8 @@ import { users } from '@/assets/users'
 // }, 14000)
 // #endregion OLD
 
-const _product = ref({ Name: '', Quantity: 0 })
-const _message = ref('')
-/*watch(
-  () => _product.value,
-  (newProduct, oldProduct) => {
-    if (newProduct.Quantity < 1) _message.value = 'Nie można zamówić mniej niż 1 produktu'
-    else if (!newProduct.Name) _message.value = 'Podaj nazwę produktu'
-    else _message.value = ''
-  },
-  { deep: true, immediate: true },
-)
-*/
-watchEffect(() => {
-  if (_product.value.Quantity < 1) _message.value = 'Nie można zamówić mniej niż 1 produktu'
-  else if (!_product.value.Name) _message.value = 'Podaj nazwę produktu'
-  else _message.value = ''
-})
 const _showProduct = ref(false)
 
-watch(
-  () => _showProduct.value,
-  (newVisibility, oldVisibility) => {
-    if (newVisibility && !oldVisibility) _product.value = { Name: '', Quantity: 0 }
-  },
-)
 //setTimeout(() => {
 // _product.value = { Name: '', Quantity: -1 }
 //}, 8000)
@@ -62,13 +40,7 @@ watch(
 
 <template>
   <input type="checkbox" v-model="_showProduct" />
-  <div v-show="_showProduct">
-    <div>
-      <input v-model="_product.Name" class="ml-1 input" />
-      <input type="number" v-model="_product.Quantity" class="ml-1 input" min="0" max="100" step="1" />
-    </div>
-    <p class="text-red-700 font-bold">{{ _message }}</p>
-  </div>
+  <OrderItem v-for="n in 3" :key="n" :visible="_showProduct" />
   <!-- #region OLD -->
   <!-- <pre>{{ _bestUsers }}</pre> -->
   <!-- <input v-model.lazy.trim="whySad" />
