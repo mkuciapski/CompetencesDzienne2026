@@ -1,7 +1,13 @@
 <script setup lang="ts">
+// 1. Możliwość poprawnego edytowania nowo dodanych kompetencji [problem z ID: -1]
+// 2. Funkcjonalność usuwania kompetencji jako nowy komponent (dialog)
+// [3]. Optymalizacja wizualna przycisków (ikony, ... - https://icon-sets.iconify.design)
+
 import { competences } from '@/assets/competences'
 import { computed, ref, watch } from 'vue'
 import CompetenceCard from '@/components/CompetenceCard.vue'
+import CompetenceDefine from '@/components/CompetenceDefine.vue'
+import type { Competence } from '@/types/Competence'
 
 // #region LIST
 const _searchText = ref('')
@@ -12,10 +18,10 @@ const _filteredCompetences = computed(() => {
   return _competences.value.filter((competence) => competence.Name.toLowerCase().includes(searchText))
 })
 
-setTimeout(() => {
-  _competences.value[0]!.Description = 'Wolę Tailwinda'
-  _competences.value.push({ Id: 11, Name: 'C++', Level: 4, Picture: 'bootstrap.svg', Description: 'Wersja 3' })
-}, 4000)
+// setTimeout(() => {
+//   _competences.value[0]!.Description = 'Wolę Tailwinda'
+//   _competences.value.push({ Id: 11, Name: 'C++', Level: 4, Picture: 'bootstrap.svg', Description: 'Wersja 3' })
+// }, 4000)
 //#endregion LIST
 
 //#region  DISPLAY
@@ -30,16 +36,32 @@ watch(
   },
   { deep: true },
 )
+
+function addCompetence(addedCompetence: Competence) {
+  _competences.value.push(addedCompetence)
+}
+
+function modifyCompetence(modifiedCompetence: Competence) {
+  const competenceInList = _competences.value.find((competence) => competence.Id === modifiedCompetence.Id)
+
+  if (!competenceInList) return
+
+  for (const prop in competenceInList) competenceInList[prop] = modifiedCompetence[prop]
+}
 </script>
 
 <template>
+  <div class="flex justify-end">
+    <CompetenceDefine @added="addCompetence" />
+  </div>
+
   <div class="join">
     <button class="btn join-item text-white bg-green-800">Podaj nazwę kompetencji</button>
     <input type="text" v-model="_searchText" />
   </div>
   <div class="flex flex-wrap justify-center">
     <template v-for="competence in _filteredCompetences" :key="competence.Id">
-      <CompetenceCard v-if="competence.Level" :competence="competence" />
+      <CompetenceCard v-if="competence.Level" :competence="competence" @modified="modifyCompetence" />
     </template>
   </div>
 
