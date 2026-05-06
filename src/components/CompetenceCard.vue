@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import InfoCard from './InfoCard.vue'
 import type { InfoModel } from '@/types/InfoModel'
-
+import CompetenceDefine from '@/components/CompetenceDefine.vue'
+import CompetenceDelete from '@/components/CompetenceDelete.vue'
 defineProps<{ competence: InfoModel }>()
 
 const _emit = defineEmits<{
@@ -11,7 +12,20 @@ const _emit = defineEmits<{
 </script>
 
 <template>
-  <InfoCard :info="competence" @modified="(competence) => _emit('modified', competence)" @deleted="(competence) => _emit('deleted', competence)" />
+  <InfoCard :info="competence" @modified="(competence) => _emit('modified', competence)" @deleted="(competence) => _emit('deleted', competence)">
+    <template #info="{ info }">
+      <h2 class="text-center text-xl uppercase">{{ info.Name }}</h2>
+      <img :src="`assets/${info.Picture}`" />
+      <div class="card-body">
+        <p :class="[info.Level < 3 ? 'text-red-500' : info.Level > 3 ? 'text-green-500' : '']">Poziom: {{ info.Level }}</p>
+        <p v-if="info.Description">Opis: {{ info.Description }}</p>
+      </div>
+      <div class="flex justify-between">
+        <CompetenceDelete @deleted="(competence) => _emit('deleted', competence)" :competence="info" />
+        <CompetenceDefine @modified="(competence) => _emit('modified', competence)" :competence="info" />
+      </div>
+    </template>
+  </InfoCard>
 </template>
 
 <style scoped></style>

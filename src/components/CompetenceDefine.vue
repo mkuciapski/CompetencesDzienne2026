@@ -38,7 +38,7 @@ function showModal() {
 
 <template>
   <!-- Trigger -->
-  <button class="btn btn-primary" @click="showModal">
+  <button class="btn btn-primary btn-sm" @click="showModal">
     <Icon :icon="competence ? 'mdi-light:pencil' : 'mdi-light:plus'" />
   </button>
 
