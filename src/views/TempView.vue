@@ -53,12 +53,42 @@ function updateProduct(updatedProduct: { Id: number; Name: string; Quantity: num
     productToUpdate.Quantity = updatedProduct.Quantity
   }
 }
+
+function numberToText(number: string): string {
+  switch (Number(number)) {
+    case 9:
+      return 'nine'
+    case 8:
+      return 'eight'
+    case 7:
+      return 'seven'
+    case 6:
+      return 'six'
+    case 5:
+      return 'five'
+    case 4:
+      return 'four'
+    case 3:
+      return 'three'
+    case 2:
+      return 'two'
+    case 1:
+      return 'one'
+    case 0:
+      return 'zero'
+    default:
+      return ''
+  }
+}
 </script>
 
 <template>
   <ButtonCountDown :start="10" />
-  <ButtonCountDown :start="20">
-    <template #counter>
+  <ButtonCountDown :start="999">
+    <template #counter="{ current }">
+      <Icon v-for="(number, index) in current.toString().split('')" :icon="`mdi:numeric-${numberToText(number)}-box-outline`" width="24" height="24" :key="index" />
+    </template>
+    <template #expired>
       <Icon icon="mdi:location-warning" width="24" height="24" />
     </template>
   </ButtonCountDown>

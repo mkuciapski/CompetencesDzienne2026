@@ -55,11 +55,19 @@ function showModal() {
 
       <div class="modal-action">
         <form method="dialog">
-          <button class="btn">Anuluj</button>
+          <ComplexButton class="btn" title="Anuluj" />
         </form>
         <ComplexButton @click="competence ? modify() : add()" class="btn btn-primary">
           <Icon :icon="competence ? 'si:check-duotone' : 'mdi:plus'" width="24" height="24" />
           {{ competence ? 'Ok' : 'Dodaj' }}
+
+          <template #below>
+            <span class="text-[0.5rem] text-gray-700!">Należy się wylogowywać</span>
+          </template>
+
+          <template #pending>
+            <span class="loading loading-spinner text-info"></span>
+          </template>
         </ComplexButton>
       </div>
     </div>
