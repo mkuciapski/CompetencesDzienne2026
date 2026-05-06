@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { ref, reactive, computed, watch, watchEffect } from 'vue'
-import { users } from '@/assets/users'
+import { ref } from 'vue'
 import OrderItem from '@/components/OrderItem.vue'
 import MaskTextBox from '@/components/MaskTextBox.vue'
 import PasswordField from '@/components/PasswordField.vue'
-
+import ButtonCountDown from '@/components/ButtonCountDown.vue'
+import { Icon } from '@iconify/vue'
 // #region OLD
 // //#region  USER
 // const user = ref({ LastName: 'Jednorowicz' })
@@ -56,6 +56,10 @@ function updateProduct(updatedProduct: { Id: number; Name: string; Quantity: num
 </script>
 
 <template>
+  <ButtonCountDown :start="10" />
+  <ButtonCountDown :start="20">
+    <Icon icon="mdi:location-warning" width="24" height="24" />
+  </ButtonCountDown>
   <input type="checkbox" v-model="_showProduct" />
   <OrderItem v-for="product in _products" :key="product.Name" :visible="_showProduct" :product="product" @update="updateProduct" />
   <pre>{{ _products }}</pre>
