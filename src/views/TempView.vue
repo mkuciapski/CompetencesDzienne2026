@@ -58,7 +58,9 @@ function updateProduct(updatedProduct: { Id: number; Name: string; Quantity: num
 <template>
   <ButtonCountDown :start="10" />
   <ButtonCountDown :start="20">
-    <Icon icon="mdi:location-warning" width="24" height="24" />
+    <template #counter>
+      <Icon icon="mdi:location-warning" width="24" height="24" />
+    </template>
   </ButtonCountDown>
   <input type="checkbox" v-model="_showProduct" />
   <OrderItem v-for="product in _products" :key="product.Name" :visible="_showProduct" :product="product" @update="updateProduct" />

@@ -18,7 +18,12 @@ watch(
 <template>
   <button class="btn" :disabled="_currentNumber < 1">
     <span v-if="_currentNumber > 0">{{ _currentNumber }}</span>
-    <slot v-if="_currentNumber < 1">Minął czas</slot>
+    <div v-if="$slots.counter">
+      <slot name="counter" v-if="_currentNumber < 1">Minął czas</slot>
+    </div>
+    <div v-else>
+      <span v-if="_currentNumber < 1" class="text-red-900">game over</span>
+    </div>
   </button>
 </template>
 
