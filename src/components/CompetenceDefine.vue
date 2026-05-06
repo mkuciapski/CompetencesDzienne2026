@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { Icon } from '@iconify/vue'
+
 import type { Competence } from '@/types/Competence'
 import { ref, watch } from 'vue'
 
@@ -29,13 +31,16 @@ function modify() {
 function showModal() {
   if (!document) return
 
-  document.getElementById(`competence_modal${_props.competence ? _props.competence.Id : 'Add'}`).showModal()
+  const modal = document.getElementById(`competence_modal${_props.competence ? _props.competence.Id : 'Add'}`) as HTMLDialogElement
+  modal.showModal()
 }
 </script>
 
 <template>
   <!-- Trigger -->
-  <button class="btn btn-primary" @click="showModal">{{ competence ? 'Edytuj' : 'Dodaj' }}</button>
+  <button class="btn btn-primary" @click="showModal">
+    <Icon :icon="competence ? 'mdi-light:pencil' : 'mdi-light:plus'" />
+  </button>
 
   <!-- Modal -->
   <dialog :id="`competence_modal${competence ? competence.Id : 'Add'}`" class="modal">
