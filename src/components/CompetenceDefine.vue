@@ -3,7 +3,7 @@ import { Icon } from '@iconify/vue'
 
 import type { Competence } from '@/types/Competence'
 import { ref, watch } from 'vue'
-
+import ComplexButton from './ComplexButton.vue'
 const _props = defineProps<{ competence?: Competence }>()
 
 const _emit = defineEmits<{
@@ -57,8 +57,10 @@ function showModal() {
         <form method="dialog">
           <button class="btn">Anuluj</button>
         </form>
-
-        <button @click="competence ? modify() : add()" class="btn btn-primary">{{ competence ? 'Ok' : 'Dodaj' }}</button>
+        <ComplexButton @click="competence ? modify() : add()" class="btn btn-primary">
+          <Icon :icon="competence ? 'si:check-duotone' : 'mdi:plus'" width="24" height="24" />
+          {{ competence ? 'Ok' : 'Dodaj' }}
+        </ComplexButton>
       </div>
     </div>
 
