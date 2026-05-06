@@ -29,4 +29,8 @@ const _emit = defineEmits<{
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+:deep(.buttonColor) {
+  color: red;
+}
+</style>

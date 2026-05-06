@@ -83,6 +83,7 @@ function numberToText(number: string): string {
 </script>
 
 <template>
+  <button class="btn">cokolwiek</button>
   <ButtonCountDown :start="10" />
   <ButtonCountDown :start="999">
     <template #counter="{ current }">
@@ -112,5 +113,8 @@ function numberToText(number: string): string {
 <style scoped>
 .last-name-style {
   font-size: v-bind('second');
+}
+:deep(.c-warning) {
+  color: aqua;
 }
 </style>

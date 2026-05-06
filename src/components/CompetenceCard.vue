@@ -14,7 +14,7 @@ const _emit = defineEmits<{
 <template>
   <InfoCard :info="competence" @modified="(competence) => _emit('modified', competence)" @deleted="(competence) => _emit('deleted', competence)">
     <template #info="{ info }">
-      <h2 class="text-center text-xl uppercase">{{ info.Name }}</h2>
+      <h2 class="text-center text-xl uppercase buttonColor">{{ info.Name }}</h2>
       <img :src="`assets/${info.Picture}`" />
       <div class="card-body">
         <p :class="[info.Level < 3 ? 'text-red-500' : info.Level > 3 ? 'text-green-500' : '']">Poziom: {{ info.Level }}</p>
@@ -28,4 +28,8 @@ const _emit = defineEmits<{
   </InfoCard>
 </template>
 
-<style scoped></style>
+<style scoped>
+.buttonColor {
+  color: brown;
+}
+</style>

@@ -17,6 +17,7 @@ watch(
 
 <template>
   <button class="btn" :disabled="_currentNumber < 1">
+    <p class="c-warning">Nie zapomnij kliknąć</p>
     <slot name="counter" v-if="_currentNumber > 0" :current="_currentNumber">{{ _currentNumber }}</slot>
 
     <div v-if="$slots.counter">
@@ -28,4 +29,11 @@ watch(
   </button>
 </template>
 
-<style scoped></style>
+<style scoped>
+button {
+  background-color: red !important;
+}
+.c-warning {
+  color: rgb(223, 219, 213);
+}
+</style>
